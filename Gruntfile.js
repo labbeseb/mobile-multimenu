@@ -22,9 +22,6 @@ module.exports = function(grunt){
 
         less: {
             development: {
-                options: {
-                    paths: ["assets/css"]
-                },
                 files: {
                     "assets/css/mobilemultimenu.css": "assets/less/mobilemultimenu.less"
                 }
