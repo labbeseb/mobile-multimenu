@@ -1,0 +1,13 @@
+{
+  "name": "MobileMultiMenu",
+  "version": "1.0.0",
+  "description": "Multilevel menu for a mobile support",
+  "main": "Gruntfile.js",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-cssmin": "^0.12.1",
+    "grunt-contrib-less": "^1.0.1",
+    "grunt-contrib-uglify": "^0.7.0",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}
