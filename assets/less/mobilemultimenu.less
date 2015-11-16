@@ -6,14 +6,19 @@
 
 .mx3-container{
   display: none;
+  box-sizing: border-box;
   position: fixed;
-  top: 50px;
+  top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 9999;
+  z-index: 99999;
   overflow: auto;
   background: #ffffff;
+
+  *{
+    box-sizing: border-box;
+  }
 
   ul{
     margin: 0;
@@ -30,7 +35,6 @@
 
     & > li{
       position: relative;
-      height: 20%;
       background-repeat: no-repeat;
       background-size: cover;
       transition: 300ms ease-out;
@@ -42,10 +46,8 @@
         height: 100%;
         overflow: hidden;
         vertical-align: middle;
-        font-size: 1.6em;
         text-align: center;
         text-decoration: none;
-        color: #333333;
       }
 
 
@@ -56,6 +58,7 @@
       &.red-height{
         height: 0;
         min-height: 0;
+        border: none;
       }
       &.link-only{
 
@@ -63,24 +66,18 @@
 
           &:before,
           &:after{
-            @widthChevrons : 8px;
-            @heightChevrons : 16px;
-            content: '';
-            width: @widthChevrons;
-            height: @heightChevrons;
             position: absolute;
             top: 50%;
-            margin-top: -(@heightChevrons / 2);
-            //background: @urlSprite -83px -4px;
-            //background-size: @hdSprite;
+            transform: translateY(-50%); // to vertical centering
             transition: .3s .3s ease-out;
           }
           &:before{
+            content: '<';
             left: 50px;
-            transform: rotate(180deg);
             opacity: 0;
           }
           &:after{
+            content: '>';
             right: 50px;
           }
         }
@@ -103,15 +100,14 @@
 
   ul.lvl2{
     display: none;
-    margin-bottom: 1em;
-    font-size: 1.4em;
+    padding-bottom: 1em;
 
     &.show{
       display: block;
     }
 
     li{
-      margin-top: 1em;
+      padding-top: 1em;
       text-align: center;
     }
 

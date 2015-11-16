@@ -1,48 +1,62 @@
-(function($)
-{
+(function($){
 
-    var MenuMulti= function (btnMenu, ctnrMenu, itemClick, transDelay){
+    var MenuMulti= function (btnMenu, transDelay){
 
         var _ = this;
-
         _.btnMenu = btnMenu;
-        _.ctnrMenu = ctnrMenu;
-        _.itemClick = itemClick;
+        _.allMx3btnMenu = $('.mx3-btn');
         _.transDelay = transDelay;
-        _.liCtnr = _.itemClick.parent('li');
+        _.dataCtnrMenu = _.btnMenu.data('mx3-block');
+        _.allCtnrMenu = $('.mx3-container');
+        _.ctnrMenu = $('.mx3-container#'+ _.dataCtnrMenu);
+        _.itemClick = _.ctnrMenu.find('.lvl1 > li > a');
+        _.liCtnr = _.ctnrMenu.find('.lvl1 > li');
+        _.classSubMenus = _.ctnrMenu.find('ul.lvl2');
         _.classActiveAnimHide = 'hide-animation';
         _.classZeroHeight = 'red-height';
         _.classSelected = 'selected';
         _.classLinkOnly = 'link-only';
-        _.classSubMenus = 'ul.lvl2';
         _.classAnimDuring = 'anim-during';
         _.nbItems = _.liCtnr.length;
         _.heightItems = (100 / _.nbItems) + '%';
 
         _.constructor = function () {
+            _.setLiHeight(_.liCtnr);
             _.toggleMenu(_.btnMenu);
             _.collapseMenu();
             _.addLinkOnly();
         };
 
-        _.initMenu = function () {
+        _.initMenu = function() {
             _.rmSelected(_.liCtnr);
-            _.rmActiveZeroHeight(_.liCtnr);
+            _.setLiHeight(_.liCtnr);
             _.rmActiveAnimHide(_.liCtnr);
             _.liCtnr.find(_.classSubMenus).hide();
 
         };
-        _.hideMenu = function () {
+        _.setStartTop = function(top){
+            _.ctnrMenu.css('top', top);
+        };
+        _.setLiHeight = function(elt){
+            elt.css('height', _.heightItems);
+        };
+        _.setLiHeightZero = function(elt) {
+            elt.css('height',0);
+        };
+        _.hideMenu = function() {
             _.btnMenu.removeClass('active');
-            _.ctnrMenu.hide();
+            _.allCtnrMenu.hide();
             _.initMenu();
         };
-        _.showMenu = function () {
+        _.showMenu = function() {
             _.btnMenu.addClass('active');
             _.ctnrMenu.fadeIn('fast');
             _.initMenu();
         };
-        _.toggleMenu = function () {
+        _.toggleMenu = function() {
+
+            _.allMx3btnMenu.removeClass('active');
+
             btnMenu.on('click', function () {
                 if (_.btnMenu.hasClass('active') && _.ctnrMenu.is(':visible')) {
                     _.hideMenu();
@@ -51,9 +65,9 @@
                 }
             });
         };
-        _.addLinkOnly = function () {
+        _.addLinkOnly = function() {
             _.liCtnr.each(function () {
-                var elt = jQuery(this),
+                var elt = $(this),
                     subMenuElt = elt.find(_.classSubMenus);
 
                 if (subMenuElt.length > 0) {
@@ -61,39 +75,32 @@
                 }
             });
         };
-        _.addSelected = function (elt) {
+        _.addSelected = function(elt) {
             elt.addClass(_.classSelected);
         };
-        _.rmSelected = function (elt) {
+        _.rmSelected = function(elt) {
             elt.removeClass(_.classSelected);
         };
-        _.addActiveAnimHide = function (elt) {
+        _.addActiveAnimHide = function(elt) {
             elt.addClass(_.classActiveAnimHide);
         };
-        _.rmActiveAnimHide = function (elt) {
+        _.rmActiveAnimHide = function(elt) {
             elt.removeClass(_.classActiveAnimHide);
         };
-        _.setHeightZero = function (elt) {
-            elt.addClass(_.classZeroHeight);
-        };
-        _.addAnimDuring = function (elt) {
+        _.addAnimDuring = function(elt) {
             elt.addClass(_.classAnimDuring);
         };
-        _.rmAnimDuring = function (elt) {
+        _.rmAnimDuring = function(elt) {
             elt.removeClass(_.classAnimDuring);
         };
-        _.rmActiveZeroHeight = function (elt) {
-            elt.removeClass(_.classZeroHeight);
-        };
-        _.showSubMenu = function (elt) {
+        _.showSubMenu = function(elt) {
             var subMenu = elt.find(_.classSubMenus);
             subMenu.stop().slideDown();
         };
 
         // ajoute les class d'animation
-        _.goAnim = function (elt) {
+        _.goAnim = function(elt) {
             var ctnr = elt.parent('li');
-
             _.addSelected(ctnr);
             _.addAnimDuring(ctnr);
 
@@ -105,7 +112,7 @@
             }, (_.transDelay * 2));
             _.liCtnr.each(function () {
 
-                var thisLi = jQuery(this);
+                var thisLi = $(this);
 
                 if (!thisLi.hasClass(_.classSelected)) {
 
@@ -113,8 +120,7 @@
 
                     window.setTimeout(function () {
 
-                        _.setHeightZero(thisLi);
-
+                        _.setLiHeightZero(thisLi);
 
                     }, _.transDelay);
                 }
@@ -122,19 +128,19 @@
 
         };
 
-        // déroule les sous-menu s'il y en a
-        _.collapseMenu = function () {
+        // dÃ©roule les sous-menu s'il y en a
+        _.collapseMenu = function() {
 
             _.itemClick.on('click', function () {
 
-                var thisItemClick = jQuery(this),
+                var thisItemClick = $(this),
                     hisContainer = thisItemClick.parent('li'),
                     hisSubMenu = hisContainer.find(_.classSubMenus);
 
 
                 if (hisSubMenu.length > 0) { // si il y a un sous menu...
 
-                    if (hisContainer.hasClass(_.classSelected) && !hisContainer.hasClass(_.classAnimDuring)) { // *** Si une catégorie est selectionnée, on affiche la liste des catégories
+                    if (hisContainer.hasClass(_.classSelected) && !hisContainer.hasClass(_.classAnimDuring)) { // *** Si une catï¿½gorie est selectionnï¿½e, on affiche la liste des catï¿½gories
 
                         _.initMenu();
 
@@ -151,19 +157,25 @@
         };
     };
 
-    $.fn.mx3=function(opt)
-    {
+    $.fn.mx3=function(opt){
         var defaults = {
-            "transDelay": 300
+            "animDelay": 300,
+            "startTop": 0,
+            "heightActiveItem": false
         };
 
         var params = $.extend(defaults, opt);
 
-        return this.each(function(){
-            _ = $(this);
+        var menu = [];
 
-            var menu = new MenuMulti(_, $('.mx3-container'), $('.lvl1 > li > a'), 300 );
-            menu.constructor();
+        return this.each(function(i){
+            var $th = $(this);
+
+            menu[i] = new MenuMulti($th, params.animDelay);
+
+            menu[i].constructor();
+            menu[i].setStartTop(params.startTop);
         });
+
     };
 })(jQuery);
