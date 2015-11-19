@@ -61,6 +61,7 @@
 
             _.subMenus.each(function(){
                 var idLvl = $(this).parents('ul').length;
+
                 $(this).addClass('lvl' + parseInt(idLvl+1));
 
                 if (typeof workInLoop === 'function') {
@@ -140,10 +141,11 @@
             return this;
         };
         _.init = function () {
-            _.addListLvl(_.collapseSubMenu)
+            _.addListLvl()
                 .setLiHeight(_.liCtnr, _.heightItems)
                 .toggleMenu(_.btnMenu)
                 .collapseMenu()
+                .collapseSubMenu()
                 .addLinkOnly();
 
             return this;
@@ -211,6 +213,28 @@
 
         _.collapseSubMenu = function(){
 
+            console.log(_.subMenus);
+            _.subMenus.each(function(){
+                var hisItem = $(this).children('li'),
+                    hisSubMenu = hisItem.children('ul'),
+                    hisLink = hisItem.children('a');
+
+                //console.log($(this));
+                hisLink.on('click', function(){
+                    console.log($(this));
+                });
+                if (hisSubMenu.length > 0) { // if there is a submenu
+
+
+                    //console.log('should be collapsed');
+
+                    return false;
+
+                }
+
+            });
+
+            return this;
         };
     };
 
@@ -229,8 +253,6 @@
             var $th = $(this);
 
             menu[i] = new MenuMulti($th, params.animDelay);
-
-            //menu[i].addListLvl();
 
             menu[i].init().setStartTop(params.startTop);// init menu
 
