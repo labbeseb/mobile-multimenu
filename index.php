@@ -47,23 +47,25 @@
         }
 
         .lvl2{
-            background-color: #333;
+
         }
         .lvl2 a{
             color: #ecf0f1;
         }
+
 
     </style>
 </head>
 
 <body>
 
-    <button type="button" data-mx3-block="main-menu" class="mx3-btn">&nbsp;Menu</button>
+    <button type="button" data-mx3-block="main-menu1" class="mx3-btn">&nbsp;Menu 1</button>
     <button type="button" data-mx3-block="main-menu2" class="mx3-btn">&nbsp;Menu 2</button>
+    <button type="button" data-mx3-block="main-menu3" class="mx3-btn">&nbsp;Menu 3</button>
     <p>Coucou</p>
 
-    <nav id="main-menu" class="mx3-container">
-        <ul class="lvl1">
+    <nav id="main-menu1" class="mx3-container">
+        <ul>
             <li>
                 <a href="/#apero" title="Apéritifs">
                     <span>Apéritifs</span>
@@ -73,7 +75,7 @@
                 <a href="/#entrees">
                     <span>Entrées</span>
                 </a>
-                <ul class="lvl2">
+                <ul>
                     <li>
                         <a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit</a>
                     </li>
@@ -89,7 +91,7 @@
                 <a href="/#plats">
                     <span>Plats</span>
                 </a>
-                <ul class="lvl2">
+                <ul>
                     <li>
                         <a href="#">Beauf bourguignon</a>
                     </li>
@@ -111,13 +113,27 @@
                 <a href="/#desserts">
                     <span>Desserts</span>
                 </a>
-                <ul class="lvl2">
+                <ul>
                     <li>
                         <a href="#">Gâteaux</a>
-                        <ul class="" style="display: none">
-                            <li>plop</li>
-                            <li>mouarf</li>
-                            <li>paf</li>
+                        <ul>
+                            <li><a href="#">plop</a></li>
+                            <li><a href="#">mouarf</a></li>
+                            <li>
+                                <a href="#">paf</a>
+                                <ul>
+                                    <li><a href="#">Je</a></li>
+                                    <li>
+                                        <a href="#">Tu</a>
+                                        <ul>
+                                            <li><a href="#">1</a></li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Il</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                     <li>
@@ -144,7 +160,7 @@
         </ul>
     </nav>
     <nav id="main-menu2" class="mx3-container">
-        <ul class="lvl1">
+        <ul>
             <li>
                 <a href="#" title="Chaises">
                     <span>Chaises</span>
@@ -154,7 +170,7 @@
                 <a href="#">
                     <span>Tables</span>
                 </a>
-                <ul class="lvl2">
+                <ul class="">
                     <li>
                         <a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit</a>
                     </li>
@@ -170,7 +186,7 @@
                 <a href="#">
                     <span>Bureaux</span>
                 </a>
-                <ul class="lvl2">
+                <ul class="">
                     <li>
                         <a href="#">Beauf bourguignon</a>
                     </li>
@@ -192,7 +208,7 @@
                 <a href="#">
                     <span>Tabourets</span>
                 </a>
-                <ul class="lvl2">
+                <ul class="">
                     <li>
                         <a href="#">Gâteaux</a>
                         <ul class="" style="display: none">
@@ -214,14 +230,43 @@
             </li>
         </ul>
     </nav>
+    <nav id="main-menu3" class="mx3-container">
+        <ul>
+            <li>
+                <a href="#" title="Chaises">
+                    <span>Machin</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span>truc</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span>bidule</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span>engin</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span>autre</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="/assets/js/mobilemultimenu.js"></script>
     <script>
         $(document).ready(function(){
             $('.mx3-btn').mx3({
-                startTop: '37px'
-
+                startTop: '37px',
+                heightActiveItem : 50
             });
         });
     </script>
