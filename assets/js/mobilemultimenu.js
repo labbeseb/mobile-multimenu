@@ -10,15 +10,18 @@
         _.dataCtnrMenu = _.btnMenu.data('mx3-block');
 
         // -*- Class names
-        _.classActiveAnimHide = 'hide-animation';
-        _.classAnimDuring = 'anim-during';
-        _.classLinkOnly = 'link-only';
-        _.classSelected = 'selected';
-        _.classZeroHeight = 'red-height';
+        _.prefixClass = 'mx3-';
+        _.classActiveAnimHide = _.prefixClass + 'hide-animation';
+        _.classActiveLink = _.prefixClass + 'active';
+        _.classAnimDuring = _.prefixClass + 'anim-during';
+        _.classArrow = _.prefixClass + 'arrow';
+        _.classNoLink = _.prefixClass + 'no-link';
+        _.classSelected = _.prefixClass + 'selected';
+        _.classZeroHeight = _.prefixClass + 'red-height';
 
         // -*- Selectors of all menus
-        _.allMx3btnMenu = $('.mx3-btn');
-        _.allCtnrMenu = $('.mx3-container');
+        _.allMx3btnMenu = $('.' + _.prefixClass + 'btn');
+        _.allCtnrMenu = $('.' + _.prefixClass + 'container');
         _.allLiCtnr = _.allCtnrMenu.find('.lvl1 > li');
 
         // -*- Selectors of this menu
@@ -27,10 +30,12 @@
         _.liCtnr = _.mainList.children('li');
         _.subMenus = _.ctnrMenu.find('ul ul');
         _.itemClick = _.liCtnr.children('a');
+        _.linksSubLvl = _.mainList.find('ul > li > a');
 
         // -*- Others
         _.nbItems = _.liCtnr.length;
         _.heightItems = (100 / _.nbItems) + '%';
+        _.pictoArrow = '<span class="' + _.classArrow + '"></span>';
 
         // -*- Methodes
         _.addActiveAnimHide = function (elt) {
@@ -43,19 +48,39 @@
 
             return this;
         };
-        _.addLinkOnly = function () {
+        _.addArrows = function(){
+            _.linksSubLvl.each(function(){
+                var $th = $(this),
+                    hisParent = $th.parent('li');
+                if( hisParent.hasClass(_.classNoLink) == true ){
+                    $th.append(_.pictoArrow)
+                        .on('click', function(){
+                            $(this).toggleClass(_.classActiveLink);
+                        });
+                }
+            });
+        };
+        _.addNoLink = function () {
             _.liCtnr.each(function () {
                 var elt = $(this),
                     subMenuElt = elt.children('ul');
 
                 if (subMenuElt.length > 0) {
-                    elt.addClass(_.classLinkOnly);
+                    elt.addClass(_.classNoLink);
+                }
+            });
+            _.subMenus.children('li').each(function () {
+                var elt = $(this),
+                    subMenuElt = elt.children('ul');
+
+                if (subMenuElt.length > 0) {
+                    elt.addClass(_.classNoLink);
                 }
             });
 
             return this;
         };
-        _.addListLvl = function (workInLoop) {
+        _.addListLvl = function () {
 
             _.mainList.addClass('lvl1');
 
@@ -63,10 +88,6 @@
                 var idLvl = $(this).parents('ul').length;
 
                 $(this).addClass('lvl' + parseInt(idLvl+1));
-
-                if (typeof workInLoop === 'function') {
-                    workInLoop();
-                }
             });
 
             return this;
@@ -87,9 +108,10 @@
 
                 if (hisSubMenu.length > 0) { // if there is a submenu
 
-                    if (hisContainer.hasClass(_.classSelected) && !hisContainer.hasClass(_.classAnimDuring)) { // *** Si une cat�gorie est selectionn�e, on affiche la liste des cat�gories
+                    if (hisContainer.hasClass(_.classSelected) && !hisContainer.hasClass(_.classAnimDuring)) { // *** Si une catégorie est selectionnée, on affiche la liste des catégories
 
-                        _.reInit();
+                        _.retractAllSubMenus(hisSubMenu)
+                            .reInit();
 
                     } else {
 
@@ -99,6 +121,23 @@
 
                     return false;
 
+                }
+            });
+
+            return this;
+        };
+        _.collapseSubMenu = function(){
+
+            _.linksSubLvl.on('click', function(){
+                var broSubMenu = $(this).siblings('ul');
+
+                if( broSubMenu.length > 0){
+                    broSubMenu.stop().slideToggle(_.speed);
+                    _.retractAllSubMenus(broSubMenu);
+
+                    broSubMenu.find('.' + _.classNoLink).removeClass(_.classActiveLink);
+
+                    return false;
                 }
             });
 
@@ -146,16 +185,27 @@
                 .toggleMenu(_.btnMenu)
                 .collapseMenu()
                 .collapseSubMenu()
-                .addLinkOnly();
+                .addNoLink()
+                .addArrows();
 
             return this;
         };
         _.reInit = function () {
-            _.rmSelected(_.liCtnr);
-            _.setLiHeight(_.liCtnr, _.heightItems);
-            _.rmActiveAnimHide(_.liCtnr);
-            _.liCtnr.children('ul').hide();
 
+            _.rmSelected(_.liCtnr)
+                .setLiHeight(_.liCtnr, _.heightItems)
+                .rmActiveAnimHide(_.liCtnr)
+                .liCtnr.children('ul')
+                .hide();
+
+        };
+        _.retractAllSubMenus = function(ctnr){
+            ctnr.find('ul').stop().slideUp(_.speed);
+            //ctnr.find(_.classNoLink + ' .);
+
+            //console.log(ctnr.siblings('ul ul'));
+
+            return this;
         };
         _.rmActiveAnimHide = function (elt) {
             elt.removeClass(_.classActiveAnimHide);
@@ -211,31 +261,8 @@
             return this;
         };
 
-        _.collapseSubMenu = function(){
-
-            console.log(_.subMenus);
-            _.subMenus.each(function(){
-                var hisItem = $(this).children('li'),
-                    hisSubMenu = hisItem.children('ul'),
-                    hisLink = hisItem.children('a');
-
-                //console.log($(this));
-                hisLink.on('click', function(){
-                    console.log($(this));
-                });
-                if (hisSubMenu.length > 0) { // if there is a submenu
 
 
-                    //console.log('should be collapsed');
-
-                    return false;
-
-                }
-
-            });
-
-            return this;
-        };
     };
 
     $.fn.mx3=function(opt){

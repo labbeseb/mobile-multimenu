@@ -26,8 +26,14 @@
 .mx3-container li {
   padding: 0;
 }
+.mx3-container a.mx3-active .mx3-arrow {
+  transform: rotate(180deg);
+}
 .mx3-container ul.lvl1 {
   height: 100%;
+}
+.mx3-container ul.lvl1 ul {
+  display: none;
 }
 .mx3-container ul.lvl1 > li {
   position: relative;
@@ -44,38 +50,44 @@
   text-align: center;
   text-decoration: none;
 }
-.mx3-container ul.lvl1 > li.hide-animation {
+.mx3-container ul.lvl1 > li.mx3-hide-animation {
   transform: translateX(-101%);
 }
-.mx3-container ul.lvl1 > li.red-height {
+.mx3-container ul.lvl1 > li.mx3-red-height {
   height: 0;
   min-height: 0;
   border: none;
 }
-.mx3-container ul.lvl1 > li.link-only > a:before,
-.mx3-container ul.lvl1 > li.link-only > a:after {
+.mx3-container ul.lvl1 > li.mx3-no-link > a:before,
+.mx3-container ul.lvl1 > li.mx3-no-link > a:after {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: middle;
+  border-style: solid;
+  border-width: 10px 6px 0 6px;
+  border-color: #000 transparent transparent transparent;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   transition: 0.3s 0.3s ease-out;
 }
-.mx3-container ul.lvl1 > li.link-only > a:before {
-  content: '<';
+.mx3-container ul.lvl1 > li.mx3-no-link > a:before {
   left: 50px;
   opacity: 0;
+  transform: translateY(-50%) rotate(90deg);
 }
-.mx3-container ul.lvl1 > li.link-only > a:after {
-  content: '>';
+.mx3-container ul.lvl1 > li.mx3-no-link > a:after {
   right: 50px;
 }
-.mx3-container ul.lvl1 > li.link-only.selected > a:before {
+.mx3-container ul.lvl1 > li.mx3-no-link.mx3-selected > a:before {
   opacity: 1;
 }
-.mx3-container ul.lvl1 > li.link-only.selected > a:after {
+.mx3-container ul.lvl1 > li.mx3-no-link.mx3-selected > a:after {
   opacity: 0;
 }
 .mx3-container ul.lvl2 {
-  display: none;
   padding-bottom: 1em;
 }
 .mx3-container ul.lvl2 ul {
@@ -91,4 +103,13 @@
 }
 .mx3-container ul.lvl2 a {
   text-decoration: none;
+}
+.mx3-container .mx3-arrow {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: middle;
+  border-style: solid;
+  border-width: 10px 6px 0 6px;
+  border-color: #000 transparent transparent transparent;
 }

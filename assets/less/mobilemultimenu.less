@@ -29,9 +29,23 @@
     padding: 0;
   }
 
+  a{
+
+
+    &.mx3-active{
+
+      .mx3-arrow {
+        transform: rotate(180deg);
+      }
+    }
+  }
 
   ul.lvl1{
     height: 100%;
+
+    ul{
+      display: none;
+    }
 
     & > li{
       position: relative;
@@ -51,38 +65,39 @@
       }
 
 
-      &.hide-animation{
+      &.mx3-hide-animation{
         transform: translateX(-101%);
         //opacity: 0;
       }
-      &.red-height{
+      &.mx3-red-height{
         height: 0;
         min-height: 0;
         border: none;
       }
-      &.link-only{
+      &.mx3-no-link{
 
         & > a{
 
           &:before,
           &:after{
+            content: '';
+            .mx3-arrow;
             position: absolute;
             top: 50%;
             transform: translateY(-50%); // to vertical centering
             transition: .3s .3s ease-out;
           }
           &:before{
-            content: '<';
             left: 50px;
             opacity: 0;
+            transform: translateY(-50%) rotate(90deg);
           }
           &:after{
-            content: '>';
             right: 50px;
           }
         }
 
-        &.selected{
+        &.mx3-selected{
 
           & > a {
 
@@ -100,7 +115,6 @@
   }
 
   ul.lvl2{
-    display: none;
     padding-bottom: 1em;
 
     & ul {
@@ -121,5 +135,16 @@
     a{
       text-decoration: none;
     }
+  }
+
+  // == PICTOS
+  .mx3-arrow{
+    display: inline-block;
+    width: 0;
+    height: 0;
+    vertical-align: middle;
+    border-style: solid;
+    border-width: 10px 6px 0 6px;
+    border-color: #000 transparent transparent transparent;
   }
 }

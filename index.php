@@ -14,6 +14,8 @@
         }
         .mx3-btn.active:before{
             content: 'Hide';
+            font-weight: bold;
+            color: darkred;
         }
 
         .lvl1 > li{
@@ -23,6 +25,12 @@
         .lvl1 > li > a {
             border-bottom: 2px solid #ecf0f1;
         }
+
+        .lvl1 > li > .mx3-no-link > a:before,
+        .lvl1 > li > .mx3-no-link > a:after{
+            border-color: #fff;
+        }
+
         .lvl1 a{
             color: #ecf0f1;
         }
@@ -170,7 +178,7 @@
                 <a href="#">
                     <span>Tables</span>
                 </a>
-                <ul class="">
+                <ul>
                     <li>
                         <a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit</a>
                     </li>
@@ -186,7 +194,7 @@
                 <a href="#">
                     <span>Bureaux</span>
                 </a>
-                <ul class="">
+                <ul>
                     <li>
                         <a href="#">Beauf bourguignon</a>
                     </li>
@@ -208,10 +216,10 @@
                 <a href="#">
                     <span>Tabourets</span>
                 </a>
-                <ul class="">
+                <ul>
                     <li>
                         <a href="#">Gâteaux</a>
-                        <ul class="" style="display: none">
+                        <ul style="display: none">
                             <li>plop</li>
                             <li>mouarf</li>
                             <li>paf</li>
