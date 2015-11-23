@@ -1,0 +1,21 @@
+{
+  "name": "mx3-multimenu",
+  "description": "Multilevel menu for a mobile support",
+  "main": "assets/js/jquery-mobilemultimenu.js",
+  "authors": [
+    "seblabbe <labbe.seb@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "menu"
+  ],
+  "homepage": "https://github.com/webSebLabbe/mobile-multimenu",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
