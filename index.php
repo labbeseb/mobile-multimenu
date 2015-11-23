@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Mx3 - Mobile Multi Menu</title>
 
-    <link rel="stylesheet" href="/assets/css/mobilemultimenu.css" media="all">
+    <link rel="stylesheet" href="/assets/css/jquery-mobilemultimenu.css" media="all">
 
     <style>
         .mx3-btn:before{
@@ -269,12 +269,13 @@
     </nav>
 
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="/assets/js/mobilemultimenu.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery-mobilemultimenu.js"></script>
     <script>
         $(document).ready(function(){
             $('.mx3-btn').mx3({
                 startTop: '37px',
-                heightActiveItem : 50
+                heightGlobalItem: false,
+                heightActiveItem: 50
             });
         });
     </script>

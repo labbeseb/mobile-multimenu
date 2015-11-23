@@ -132,6 +132,7 @@
                 var broSubMenu = $(this).siblings('ul');
 
                 if( broSubMenu.length > 0){
+
                     broSubMenu.stop().slideToggle(_.speed);
                     _.retractAllSubMenus(broSubMenu);
 
@@ -172,6 +173,13 @@
 
             return this;
         };
+
+
+        _.backAnim = function(elt){
+
+        };
+
+
         _.hideMenu = function () {
             _.btnMenu.removeClass('active');
             _.ctnrMenu.hide();
@@ -200,10 +208,10 @@
 
         };
         _.retractAllSubMenus = function(ctnr){
-            ctnr.find('ul').stop().slideUp(_.speed);
-            //ctnr.find(_.classNoLink + ' .);
+            var subs = ctnr.find('ul');
 
-            //console.log(ctnr.siblings('ul ul'));
+            subs.stop().slideUp(_.speed)
+                .siblings('a.'+ _.classActiveLink).removeClass(_.classActiveLink);
 
             return this;
         };
@@ -226,6 +234,9 @@
             elt.css('height', height);
 
             return this;
+        };
+        _.setLiHeightPx = function(height){
+            _.heightItems = height;
         };
         _.setStartTop = function (top) {
             _.ctnrMenu.css('top', top);
@@ -269,7 +280,8 @@
         var defaults = {
             "animDelay": 300,
             "startTop": 0,
-            "heightActiveItem": "NC"
+            "heightGlobalItem": false,
+            "heightActiveItem": false
         };
 
         var params = $.extend(defaults, opt);
@@ -281,11 +293,19 @@
 
             menu[i] = new MenuMulti($th, params.animDelay);
 
-            menu[i].init().setStartTop(params.startTop);// init menu
+            // Set height of each item (lvl1)
+            if( isNaN(parseInt(params.heightGlobalItem)) == false ){
+                menu[i].setLiHeightPx(params.heightGlobalItem);
+            }
 
+            // Init menu
+            menu[i].init().setStartTop(params.startTop);
+
+            // On click...
             menu[i].itemClick.on('click', function(){
                 var eltLi = $(this).parent('li');
 
+                // ...set Height of active item on change state
                 if( isNaN(parseInt(params.heightActiveItem)) == false && $(this).parent('li').hasClass(menu[i].classSelected) == true ){
                     window.setTimeout(function(){
                         menu[i].setLiHeight(eltLi, params.heightActiveItem);

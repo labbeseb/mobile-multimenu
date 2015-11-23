@@ -4,7 +4,7 @@ module.exports = function(grunt){
         uglify: {
             dist: {
                 files: {
-                    'assets/js/mobilemultimenu.min.js': 'assets/js/mobilemultimenu.js'
+                    'assets/js/jquery-mobilemultimenu.min.js': 'assets/js/jquery-mobilemultimenu.js'
                 }
             }
         },
@@ -15,7 +15,7 @@ module.exports = function(grunt){
                     keepSpecialComments: '0'
                 },
                 files: {
-                    'assets/css/mobilemultimenu.min.css': 'assets/css/mobilemultimenu.css'
+                    'assets/css/jquery-mobilemultimenu.min.css': 'assets/css/jquery-mobilemultimenu.css'
                 }
             }
         },
@@ -23,7 +23,7 @@ module.exports = function(grunt){
         less: {
             development: {
                 files: {
-                    "assets/css/mobilemultimenu.css": "assets/less/mobilemultimenu.less"
+                    "assets/css/jquery-mobilemultimenu.css": "assets/less/jquery-mobilemultimenu.less"
                 }
             }
         },
