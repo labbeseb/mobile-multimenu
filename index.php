@@ -54,11 +54,18 @@
             background-color: #2980b9;
         }
 
-        .lvl2{
-
-        }
         .lvl2 a{
+            position: relative;
             color: #ecf0f1;
+        }
+
+        .lvl2 .mx3-arrow{
+            position: absolute;
+            top: 50%;
+            right: -12px;
+            margin-top: -2px;
+            margin-left: 10px;
+            border-width: 5px 3px 0 3px;
         }
 
 
@@ -70,7 +77,8 @@
     <button type="button" data-mx3-block="main-menu1" class="mx3-btn">&nbsp;Menu 1</button>
     <button type="button" data-mx3-block="main-menu2" class="mx3-btn">&nbsp;Menu 2</button>
     <button type="button" data-mx3-block="main-menu3" class="mx3-btn">&nbsp;Menu 3</button>
-    <p>Coucou</p>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci at culpa cum eaque fuga fugit illum ipsa iusto, magnam minima, modi nobis nostrum officia quam quibusdam unde vero voluptatibus voluptatum.</p>
 
     <nav id="main-menu1" class="mx3-container">
         <ul>
