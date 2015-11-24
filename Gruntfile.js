@@ -28,6 +28,19 @@ module.exports = function(grunt){
             }
         },
 
+        pleeease: {
+            custom: {
+                options: {
+                    autoprefixer: {'browsers': ['last 4 versions', 'ios 6']},
+                    filters: {'oldIE': true},
+                    minifier: false
+                },
+                files: {
+                    "assets/css/jquery-mobilemultimenu.css": "assets/css/jquery-mobilemultimenu.css"
+                }
+            }
+        },
+
 
         watch: {
             convLess: {
@@ -42,6 +55,7 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-pleeease');
 
     grunt.registerTask('default', ['uglify', 'cssmin']);
 };
