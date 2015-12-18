@@ -278,10 +278,10 @@
 
     $.fn.mx3=function(opt){
         var defaults = {
-            "animDelay": 300,
-            "startTop": 0,
-            "heightGlobalItem": false,
-            "heightActiveItem": false
+            animDelay: 300,
+            startTop: 0,
+            heightGlobalItem: false,
+            heightActiveItem: false
         };
 
         var params = $.extend(defaults, opt);
